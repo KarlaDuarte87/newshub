@@ -25,7 +25,7 @@ export default function ArticleGrid({ articles, isLoading = false }: ArticleGrid
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-8 py-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-6 sm:gap-y-8 md:gap-y-10 gap-x-4 sm:gap-x-6 md:gap-x-8 py-4 sm:py-6 md:py-8">
       {articles.map((article) => (
         <ArticleCard key={article.id} article={article} />
       ))}
