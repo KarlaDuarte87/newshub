@@ -8,17 +8,15 @@ interface ArticlePageProps {
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  // Em Next.js 15+, params é uma Promise, precisamos fazer await
   const { slug } = await params;
   
   const article = await fetchArticle(slug);
 
   if (!article) {
-    notFound(); // Renderiza página 404 do Next.js
+    notFound();
   }
 
-  // Função para compartilhar nas redes sociais
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/articles/${slug}`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/posts/${slug}`;
   const shareText = encodeURIComponent(article.title);
 
   return (
