@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 
 export default function Header() {
@@ -8,6 +9,11 @@ export default function Header() {
   const [today, setToday] = useState('');
   const [todayShort, setTodayShort] = useState('');
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const navRef = useRef<HTMLDivElement>(null);
+  const navTopRef = useRef<number>(0);
+  const [isNavSticky, setIsNavSticky] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
 
   useEffect(() => {
 
@@ -43,6 +49,36 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!navRef.current) return;
+    navTopRef.current = navRef.current.offsetTop;
+    setNavHeight(navRef.current.offsetHeight);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsNavSticky(window.scrollY >= navTopRef.current);
+    };
+    const handleResize = () => {
+      if (!navRef.current) return;
+      navTopRef.current = navRef.current.offsetTop;
+      setNavHeight(navRef.current.offsetHeight);
+      handleScroll();
+    };
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <header className="bg-white border-b border-gray-200">
 
@@ -71,7 +107,13 @@ export default function Header() {
         </p>
       </div>
 
-      <nav className="bg-black text-white">
+
+      <div style={{ height: isNavSticky ? navHeight : 0 }} aria-hidden />
+
+      <nav
+        ref={navRef}
+        className={`bg-black text-white ${isNavSticky ? 'fixed top-0 left-0 right-0 z-50 shadow-md' : ''}`}
+      >
         <div className="max-w-6xl mx-auto px-3 sm:px-4">
           <ul className="hidden md:flex overflow-x-auto space-x-6 py-3 text-xs font-bold uppercase tracking-widest">
             <li className="whitespace-nowrap hover:text-red-400">
