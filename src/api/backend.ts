@@ -1,4 +1,4 @@
-import { Article } from "@/types/article";
+import { Post } from "@/types/post";
 
 const getApiUrl = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
@@ -10,7 +10,7 @@ const getApiUrl = () => {
     : 'http://localhost:3001';
 };
 
-export async function fetchArticles (): Promise<Article[]> {
+export async function fetchPosts (): Promise<Post[]> {
     const API_URL = getApiUrl();
     try {
         const response = await fetch(`${API_URL}/posts`, {
@@ -22,7 +22,7 @@ export async function fetchArticles (): Promise<Article[]> {
         });
         
         if (!response.ok) {
-            throw new Error(`Erro ao buscar artigos: ${response.status} ${response.statusText}`);
+            throw new Error(`Erro ao buscar posts: ${response.status} ${response.statusText}`);
         }
         
         const data = await response.json();
@@ -32,7 +32,7 @@ export async function fetchArticles (): Promise<Article[]> {
     }
 }
 
-export async function fetchArticle (slug: string): Promise<Article | null> {
+export async function fetchPost (slug: string): Promise<Post | null> {
     const API_URL = getApiUrl();
     try {
         const response = await fetch(`${API_URL}/posts/${slug}`, {
@@ -46,7 +46,7 @@ export async function fetchArticle (slug: string): Promise<Article | null> {
             if (response.status === 404) {
                 return null;
             }
-            throw new Error(`Erro ao buscar artigo: ${response.status} ${response.statusText}`);
+            throw new Error(`Erro ao buscar post: ${response.status} ${response.statusText}`);
         }
         return await response.json();
     } catch (error: any) {

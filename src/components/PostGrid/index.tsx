@@ -1,12 +1,12 @@
-import { Article } from '@/types/article';
-import ArticleCard from '@/components/ArticleCard';
+import { Post } from '@/types/post';
+import PostCard from '@/components/PostCard';
 
-interface ArticleGridProps {
-  articles: Article[];
+interface PostGridProps {
+  posts: Post[];
   isLoading?: boolean;
 }
 
-export default function ArticleGrid({ articles, isLoading = false }: ArticleGridProps) {
+export default function PostGrid({ posts, isLoading = false }: PostGridProps) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
@@ -16,18 +16,18 @@ export default function ArticleGrid({ articles, isLoading = false }: ArticleGrid
     );
   }
 
-  if (articles.length === 0) {
+  if (posts.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-500 text-lg">Nenhum artigo encontrado.</p>
+        <p className="text-gray-500 text-lg">Nenhum post encontrado.</p>
       </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-6 sm:gap-y-8 md:gap-y-10 gap-x-4 sm:gap-x-6 md:gap-x-8 py-4 sm:py-6 md:py-8">
-      {articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} />
       ))}
     </div>
   );

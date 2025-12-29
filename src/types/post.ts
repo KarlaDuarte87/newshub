@@ -1,4 +1,4 @@
-export interface Article{
+export interface Post{
     id: string;
     slug: string;
     title: string;
@@ -9,3 +9,4 @@ export interface Article{
     category: string;
     imageUrl: string;
 }
+

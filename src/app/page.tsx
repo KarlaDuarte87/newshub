@@ -1,9 +1,9 @@
-import { fetchArticles } from '@/api/backend';
-import ArticleGrid from '@/components/ArticleGrid';
+import { fetchPosts } from '@/api/backend';
+import PostGrid from '@/components/PostGrid';
 
 export default async function Home() {
 
-  const articles = await fetchArticles();
+  const posts = await fetchPosts();
 
   return (
     <section className="py-4 sm:py-6 md:py-8">
@@ -19,7 +19,7 @@ export default async function Home() {
       </div>
 
       {/* Grid de artigos */}
-      <ArticleGrid articles={articles} />
+      <PostGrid posts={posts} />
     </section>
   );
 }

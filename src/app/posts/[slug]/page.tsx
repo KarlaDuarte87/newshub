@@ -1,23 +1,23 @@
-import { fetchArticle } from '@/api/backend';
+import { fetchPost } from '@/api/backend';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-interface ArticlePageProps {
+interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   
-  const article = await fetchArticle(slug);
+  const post = await fetchPost(slug);
 
-  if (!article) {
+  if (!post) {
     notFound();
   }
 
   const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/posts/${slug}`;
-  const shareText = encodeURIComponent(article.title);
+  const shareText = encodeURIComponent(post.title);
 
   return (
     <div className="py-4 sm:py-6 md:py-8 max-w-4xl mx-auto px-3 sm:px-4">
@@ -36,26 +36,26 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       {/* Header do artigo */}
       <header className="mb-6 sm:mb-8">
         <span className="bg-red-700 text-white text-[9px] sm:text-[10px] font-bold px-2 py-1 uppercase tracking-wider mb-3 sm:mb-4 inline-block">
-          {article.category}
+          {post.category}
         </span>
         <h1 className="serif-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-black mb-4 sm:mb-6">
-          {article.title}
+          {post.title}
         </h1>
         
         {/* Autor e data */}
         <div className="flex items-center space-x-3 sm:space-x-4 border-t border-b border-gray-100 py-3 sm:py-4 mb-6 sm:mb-8">
           <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
             <Image 
-              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(article.author)}&size=100`}
-              alt={article.author}
+              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(post.author)}&size=100`}
+              alt={post.author}
               width={40}
               height={40}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xs sm:text-sm font-bold text-black uppercase tracking-tight truncate">Por {article.author}</p>
-            <p className="text-[10px] sm:text-xs text-gray-400">{article.publishDate}</p>
+            <p className="text-xs sm:text-sm font-bold text-black uppercase tracking-tight truncate">Por {post.author}</p>
+            <p className="text-[10px] sm:text-xs text-gray-400">{post.publishDate}</p>
           </div>
         </div>
       </header>
@@ -63,8 +63,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       {/* Imagem principal */}
       <div className="mb-6 sm:mb-8 md:mb-10 rounded-sm overflow-hidden">
         <Image 
-          src={article.imageUrl} 
-          alt={article.title} 
+          src={post.imageUrl} 
+          alt={post.title} 
           width={800}
           height={450}
           className="w-full h-auto object-cover max-h-[300px] sm:max-h-[400px] md:max-h-[500px]"
@@ -77,7 +77,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       {/* Conteúdo HTML */}
       <div 
         className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-gray-800 leading-relaxed font-serif text-sm sm:text-base md:text-lg prose-headings:font-black prose-headings:text-black prose-p:mb-4 prose-img:rounded-sm prose-a:text-red-700 prose-a:no-underline hover:prose-a:underline"
-        dangerouslySetInnerHTML={{ __html: article.content }} 
+        dangerouslySetInnerHTML={{ __html: post.content }} 
       />
 
       {/* Footer com compartilhamento social */}
