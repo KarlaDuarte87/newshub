@@ -1,12 +1,14 @@
 import { Post } from '@/types/post';
 import PostCard from '@/components/PostCard';
+import ErrorMessage from '@/components/ErrorMessage';
 
 interface PostGridProps {
   posts: Post[];
   isLoading?: boolean;
+  error?: boolean;
 }
 
-export default function PostGrid({ posts, isLoading = false }: PostGridProps) {
+export default function PostGrid({ posts, isLoading = false, error = false }: PostGridProps) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
@@ -16,10 +18,19 @@ export default function PostGrid({ posts, isLoading = false }: PostGridProps) {
     );
   }
 
+  if (error) {
+    return (
+      <ErrorMessage 
+        message="Não foi possível conectar com o servidor. Verifique sua conexão e tente recarregar a página."
+      />
+    );
+  }
+
   if (posts.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-500 text-lg">Nenhum post encontrado.</p>
+        <p className="text-gray-500 text-lg mb-2">Nenhum post encontrado.</p>
+        <p className="text-gray-400 text-sm">Tente recarregar a página ou verifique sua conexão.</p>
       </div>
     );
   }
