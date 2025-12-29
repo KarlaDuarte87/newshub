@@ -45,6 +45,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'viaable.eu',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
