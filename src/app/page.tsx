@@ -1,4 +1,4 @@
-import { fetchArticles } from '@/lib/api';
+import { fetchArticles } from '@/api/backend';
 import ArticleGrid from '@/components/ArticleGrid';
 
 export default async function Home() {

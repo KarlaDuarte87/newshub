@@ -10,7 +10,7 @@ const getApiUrl = () => {
     : 'http://localhost:3001';
 };
 
-export async function fetchArticles () : Promise<Article[]> {
+export async function fetchArticles (): Promise<Article[]> {
     const API_URL = getApiUrl();
     try {
         const response = await fetch(`${API_URL}/posts`, {
@@ -32,7 +32,7 @@ export async function fetchArticles () : Promise<Article[]> {
     }
 }
 
-export async function fetchArticle (slug: string) : Promise<Article | null> {
+export async function fetchArticle (slug: string): Promise<Article | null> {
     const API_URL = getApiUrl();
     try {
         const response = await fetch(`${API_URL}/posts/${slug}`, {
@@ -53,3 +53,4 @@ export async function fetchArticle (slug: string) : Promise<Article | null> {
         return null;
     }
 }
+

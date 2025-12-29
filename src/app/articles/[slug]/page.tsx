@@ -1,4 +1,4 @@
-import { fetchArticle } from '@/lib/api';
+import { fetchArticle } from '@/api/backend';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -126,3 +126,4 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     </div>
   );
 }
+

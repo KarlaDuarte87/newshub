@@ -1,5 +1,5 @@
 import { Article } from '@/types/article';
-import ArticleCard from './ArticleCard';
+import ArticleCard from '@/components/ArticleCard';
 
 interface ArticleGridProps {
   articles: Article[];
@@ -32,3 +32,4 @@ export default function ArticleGrid({ articles, isLoading = false }: ArticleGrid
     </div>
   );
 }
+
