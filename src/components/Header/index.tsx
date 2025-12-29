@@ -1,17 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [today, setToday] = useState('');
+  const [todayShort, setTodayShort] = useState('');
 
-  const today = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  useEffect(() => {
+
+    setToday(new Date().toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }));
+    setTodayShort(new Date().toLocaleDateString('pt-BR', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric' 
+    }));
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -21,8 +31,8 @@ export default function Header() {
     <header className="bg-white border-b border-gray-200">
 
       <div className="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider">
-        <span className="hidden sm:inline">{today}</span>
-        <span className="sm:hidden">{new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+        <span className="hidden sm:inline">{today || '\u00A0'}</span>
+        <span className="sm:hidden">{todayShort || '\u00A0'}</span>
         <div className="space-x-2 sm:space-x-4 hidden md:flex">
           <span className="hover:text-red-700 cursor-pointer">Assine</span>
           <span className="hover:text-red-700 cursor-pointer">Newsletter</span>
@@ -47,7 +57,6 @@ export default function Header() {
 
       <nav className="bg-black text-white">
         <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex overflow-x-auto space-x-6 py-3 text-xs font-bold uppercase tracking-widest">
             <li className="whitespace-nowrap hover:text-red-400">
               <Link href="/">Página Inicial</Link>
@@ -60,7 +69,6 @@ export default function Header() {
             <li className="whitespace-nowrap hover:text-red-400 cursor-pointer">Saúde</li>
           </ul>
 
-          {/* Mobile Navigation */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}

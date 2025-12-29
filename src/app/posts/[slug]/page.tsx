@@ -21,7 +21,6 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="py-4 sm:py-6 md:py-8 max-w-4xl mx-auto px-3 sm:px-4">
-      {/* Botão Voltar */}
       <Link 
         href="/" 
         className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-red-700 mb-4 sm:mb-6 md:mb-8"
@@ -33,7 +32,6 @@ export default async function PostPage({ params }: PostPageProps) {
         <span className="sm:hidden">Voltar</span>
       </Link>
 
-      {/* Header do artigo */}
       <header className="mb-6 sm:mb-8">
         <span className="bg-red-700 text-white text-[9px] sm:text-[10px] font-bold px-2 py-1 uppercase tracking-wider mb-3 sm:mb-4 inline-block">
           {post.category}
@@ -42,7 +40,6 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.title}
         </h1>
         
-        {/* Autor e data */}
         <div className="flex items-center space-x-3 sm:space-x-4 border-t border-b border-gray-100 py-3 sm:py-4 mb-6 sm:mb-8">
           <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
             <Image 
@@ -60,7 +57,6 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </header>
 
-      {/* Imagem principal */}
       <div className="mb-6 sm:mb-8 md:mb-10 rounded-sm overflow-hidden">
         <Image 
           src={post.imageUrl} 
@@ -74,17 +70,14 @@ export default async function PostPage({ params }: PostPageProps) {
         </p>
       </div>
 
-      {/* Conteúdo HTML */}
       <div 
         className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-gray-800 leading-relaxed font-serif text-sm sm:text-base md:text-lg prose-headings:font-black prose-headings:text-black prose-p:mb-4 prose-img:rounded-sm prose-a:text-red-700 prose-a:no-underline hover:prose-a:underline"
         dangerouslySetInnerHTML={{ __html: post.content }} 
       />
 
-      {/* Footer com compartilhamento social */}
       <footer className="mt-8 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-gray-100">
         <h3 className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-3 sm:mb-4">Compartilhe esta notícia</h3>
         <div className="flex space-x-2 sm:space-x-3">
-          {/* Facebook */}
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
             target="_blank"
@@ -101,7 +94,6 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </a>
           
-          {/* Twitter */}
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${shareText}`}
             target="_blank"
@@ -118,7 +110,6 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </a>
           
-          {/* WhatsApp */}
           <a
             href={`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`}
             target="_blank"
@@ -135,7 +126,6 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </a>
           
-          {/* Instagram */}
           <a
             href={`https://www.instagram.com/`}
             target="_blank"
