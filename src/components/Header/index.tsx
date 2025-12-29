@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [today, setToday] = useState('');
   const [todayShort, setTodayShort] = useState('');
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
 
@@ -26,6 +27,21 @@ export default function Header() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -69,7 +85,7 @@ export default function Header() {
             <li className="whitespace-nowrap hover:text-red-400 cursor-pointer">Saúde</li>
           </ul>
 
-          <div className="md:hidden">
+          <div className="md:hidden" ref={mobileMenuRef}>
             <button
               onClick={toggleMobileMenu}
               className="w-full flex items-center justify-between py-3 text-xs font-bold uppercase tracking-widest"
