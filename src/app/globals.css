@@ -7,10 +7,12 @@
 :root {
   color-scheme: light;
 }
+
 body {
   font-family: 'Inter', sans-serif;
   background: #fcfcfc;
 }
+
 .serif-title {
   font-family: 'Libre Baskerville', serif;
 }
